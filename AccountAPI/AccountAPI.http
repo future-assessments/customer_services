@@ -1,0 +1,11 @@
+@AccountAPI_HostAddress = http://localhost:5045
+
+GET {{AccountAPI_HostAddress}}/Account/
+Accept: application/json
+
+###
+
+GET {{{{AccountAPI_HostAddress}}}}/Account/1
+Accept: application/json
+
+###

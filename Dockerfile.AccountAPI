@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /
+COPY ["AccountAPI/AccountAPI.csproj", "AccountAPI/"]
+RUN dotnet dev-certs https --trust
+RUN dotnet restore "AccountAPI/AccountAPI.csproj"
+

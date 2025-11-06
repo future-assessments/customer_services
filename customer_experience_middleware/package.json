@@ -1,0 +1,15 @@
+{
+  "name": "customer_experience",
+  "version": "1.0.0",
+  "description": "A basic middleware for managing customers",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anthony Ikeda <aikeda33@bloomberg.net>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
