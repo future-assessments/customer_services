@@ -6,7 +6,7 @@ name: .NET
 on:
   push:
     paths:
-      - 'CustomerAPI/**'
+      - 'AccountAPI/**'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -23,6 +23,6 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore dependencies
-      run: dotnet restore CustomerAPI
+      run: dotnet restore AccountAPI
     - name: Build
-      run: dotnet build --no-restore CustomerAPI
+      run: dotnet build --no-restore AccountAPI
