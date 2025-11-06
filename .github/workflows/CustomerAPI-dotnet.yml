@@ -36,3 +36,6 @@ jobs:
       run: dotnet restore CustomerAPI
     - name: Build
       run: dotnet build --no-restore CustomerAPI
+    - name: Dockerize
+      run: docker build -t anthonyikeda/customer-api:latest -f ./Dockerfile.CustomerAPI .
+  
