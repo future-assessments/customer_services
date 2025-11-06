@@ -21,6 +21,6 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore dependencies
-      run: dotnet restore --project CustomerAPI
+      run: dotnet restore CustomerAPI
     - name: Build
       run: dotnet build --no-restore CustomerAPI
