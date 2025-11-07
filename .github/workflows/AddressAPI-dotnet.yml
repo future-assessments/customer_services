@@ -37,3 +37,5 @@ jobs:
       run: dotnet restore AddressAPI
     - name: Build
       run: dotnet build --no-restore AddressAPI
+    - name: Dockerize
+      run: docker build -t anthonyikeda/customer-api:latest -f ./Dockerfile.AddressAPI .
