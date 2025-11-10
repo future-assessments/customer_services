@@ -8,7 +8,7 @@ export async function fetchLatestCustomers() {
     return results;
 }
 
-export async function getCustomerById(customerId: number) {
+export async function fetchCustomerById(customerId: number) {
     const customer = await fetch(`http://localhost:3030/customer/${customerId}`);
     const result = customer.json() as Promise<Customer>;
     return result;

@@ -1,6 +1,6 @@
 "use client";
 
-import { getCustomerById } from "@/lib/customer_api";
+import { fetchCustomerById } from "@/lib/customer_api";
 import { Customer } from "admin/customers";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -18,8 +18,8 @@ export default function CustomerView() {
 
     useEffect(() => {
 
-        const fetch_customer = async(custId: number) => {
-            getCustomerById(custId).then(customer => {
+        const getCustomer = async(custId: number) => {
+            fetchCustomerById(custId).then(customer => {
                 setLastName(customer.lastName);
                 setFirstName(customer.firstName);
                 setCustomer(customer);
@@ -27,7 +27,7 @@ export default function CustomerView() {
         }
 
 
-        fetch_customer(params.id as unknown as number);
+        getCustomer(params.id as unknown as number);
 
     }, []);
     return (<>

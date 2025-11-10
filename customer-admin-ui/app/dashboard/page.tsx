@@ -11,7 +11,7 @@ export default function Dashboard() {
 
     const editCustomer = (customerId: number) => {
         console.log(`Editing customer ${customerId}`);
-        router.push(`/customerView/${customerId}`);
+        router.push(`/customer/${customerId}`);
     }
 
     useEffect(() => {
