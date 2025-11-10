@@ -28,6 +28,21 @@ app.get('/account/:accountId', (req,res) => {
     });
 });
 
+app.get('/account', (req,res) => {
+    fetch(`http://localhost:5045/Account`).then( apiResp => apiResp.json() )
+    .then(data => {
+        console.log(data);
+        res.status(200);
+        res.contentType('application/json');
+        res.send(data);
+    })
+    .catch(error => {
+        console.error("Error fetch data: ", error);
+        res.status(400);
+        res.send("Error fetching data: ", error);
+    });
+});
+
 
 app.get('/customer', (req,res) => {
     fetch('http://localhost:5263/Customer').then( apiResp => apiResp.json() )

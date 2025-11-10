@@ -15,7 +15,6 @@ export default function AccountById() {
     useEffect(() => {
         const getAccountById = async(accountId: string) => {
             const account = await fetchAccountById(accountId as unknown as number);
-            console.log(account);
             setAccountName(account.accountName);
             setAccountType(account.accountType?.displayName);
             
