@@ -1,7 +1,21 @@
 declare module "admin/customers" {
     interface Customer {
-        CustomerId: numeric;
-        FirstName: string;
-        LastName: string;
+        customerId: number;
+        firstName: string;
+        lastName: string;
+    }
+}
+
+declare module "admin/accounts" {
+    interface AccountType {
+        accountTypeId: number;
+        displayName: string;
+    };
+
+    interface Account {
+        accountId: number;
+        accountName: string;
+        accountType: AccountType;
+        accountBalance: number;
     }
 }

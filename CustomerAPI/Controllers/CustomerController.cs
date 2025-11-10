@@ -1,43 +1,26 @@
 using CustomerAPI.DTO;
+using CustomerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CustomerController : ControllerBase
+public class CustomerController(ICustomerService service) : ControllerBase
 {
+    private readonly ICustomerService _service = service;
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var customer = new CustomerDTO
-        {
-            CustomerId = id,
-            FirstName = "Joe",
-            LastName = "Green"
-        };
-
+        var customer = await _service.GetById(id);
         return Ok(customer);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll(int offset = 0, int limit = 10)
     {
-        List<CustomerDTO> results = new List<CustomerDTO>
-        {
-            new CustomerDTO
-            {
-                CustomerId = 1,
-                FirstName = "Michelle",
-                LastName = "Rose"
-            },
-            new CustomerDTO
-            {
-                CustomerId = 2,
-                FirstName = "Jennifer",
-                LastName = "McDonald"
-            }
-        };
+        List<CustomerDTO> results = await _service.GetAll(offset, limit);
         return Ok(results);
     }
 }

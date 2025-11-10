@@ -1,0 +1,81 @@
+name: "Customer Portal"
+
+services:
+  customer-api:
+    image: anthonyikeda/customer-api:latest
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__CustomerDatabase=Server=customer-db;Database=CustomerDB;User Id=sa;Password=Your_password123;
+    depends_on:
+      - customer-db
+
+  customer-db:
+    image: postgres:latest
+    environment:
+      PG_USER: postgres
+      P{G_PASSWORD: Your_password123
+      PG_DB: CustomerDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - customer-db-data:/var/lib/postgresql/data}
+
+  address-api:
+    image: anthonyikeda/address-api:latest
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__AddressDatabase=Server=address-db;Database=AddressDB;User Id=sa;Password=Your_password123;
+    depends_on:
+      - address-db
+
+  address-db:
+    image: postgres:latest
+    environment:
+      PG_USER: postgres
+      PG_PASSWORD: Your_password123
+      PG_DB: AddressDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - address-db-data:/var/lib/postgresql/data
+
+  account-api:
+    image: anthonyikeda/account-api:latest
+    ports:
+      - "5002:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - account-db
+  account-db:
+    image: postgres:latest
+    environment:
+      PG_USER: postgres
+      PG_PASSWORD: Your_password123
+      PG_DB: AccountDB
+    ports:
+      - "5004:5432"
+    volumes:
+      - account-db-data:/var/lib/postgresql/data
+
+  customer-experience-ui:
+    image: anthonyikeda/customer-experience-ui:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_CUSTOMER_API_URL=http://localhost:5000
+      - NEXT_PUBLIC_ADDRESS_API_URL=http://localhost:5001
+      - NEXT_PUBLIC_ACCOUNT_API_URL=http://localhost:5002
+    depends_on:
+      - customer-api
+      - address-api
+      - account-api
+
+volumes:
+  customer-db-data:
+  address-db-data:
+  account-db-data:

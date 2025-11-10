@@ -1,0 +1,21 @@
+= Customer Experiences
+
+== Building the NextJS Applications
+
+Run the Docker build:
+
+[bash]
+----
+$ docker build --tag customer-admin-ui:latest -f Dockerfile.NextJS ./customer-admin-ui
+$ docker build --tag customer-experience-ui:latest -f Dockerfile.NextJS ./customer-experience-ui
+----
+
+== Building the .NET Applications
+
+[bash]
+----
+$ docker build  --tag customer-api:latest -f Dockerfile.CustomerAPI ./customer-api
+$ docker build --tag account-api:latest -f Dockerfile.AccountAPI ./account-api
+$ docker build --tag address-api:latest -f Dockerfile.AddressAPI ./address-api
+----
+
