@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CustomerView from "./CustomerView";
 import CustomerEdit from "./CustomerEdit";
+import { Divider } from "@heroui/divider";
 
 export default function CustomerById() {
     const params = useParams<{id: string}>();
@@ -22,10 +23,9 @@ export default function CustomerById() {
     }, [params.id]);
 
     return (
-    <div>
-        <h1>Customer By Id Page</h1>
+    <div style={{ width: "70%", marginLeft: "auto", marginRight: "auto" }}>
         <CustomerView lastName={lastName} firstName={firstName} />
-        <hr/>
+        <Divider />
         <CustomerEdit customerId={params.id as unknown as number} firstName={firstName} lastName={lastName} />
     </div>
     );

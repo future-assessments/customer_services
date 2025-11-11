@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { fetchLatestCustomers } from "@/lib/customer_api";
 import { useRouter } from "next/navigation";
 
+import { Card, CardHeader, CardBody } from "@heroui/card";
+import { Divider } from "@heroui/divider";
+import CustomerList from "../customer/page";
+import AccountList from "../account/account_list";
+
 export default function Dashboard() {
     const router = useRouter();
     const [customers, setCustomers] = useState<Customer[]>([]);
@@ -23,25 +28,13 @@ export default function Dashboard() {
         get_recent_customers()
     }, []);
 
-    return (<>
-    <h1>Recently Created Customers</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Customer name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {customers && customers.map( (customer) => (
-            <tr key={customer.customerId}>
-                <td>{customer.lastName}, {customer.firstName}</td>
-                <td>
-                    <button onClick={() => editCustomer(customer.customerId)}>Edit</button>
-                </td>
-            </tr>
-        ))}
-        </tbody>
-    </table>
-    </>);
+    return (
+    <div style={{ textAlign: "center" }}>
+        <h1>Dashboard</h1>
+        <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
+            <CustomerList />
+            <AccountList />
+        </div>
+    </div>
+    );
 }

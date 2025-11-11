@@ -5,6 +5,8 @@ import { fetchAccountById } from "@/lib/account_api";
 import { useEffect, useState } from "react";
 import { Account } from "admin/accounts";
 import { useRouter } from "next/navigation";
+import AccountView from "./AccountView";
+import AccountEdit from "./AccountEdit";
 
 export default function AccountById() {
     const router = useRouter();
@@ -12,6 +14,7 @@ export default function AccountById() {
     const [accountName, setAccountName] = useState<string>("");
     const [accountType, setAccountType] = useState<string>("");
     const [accountBalance, setAccountBalance] = useState<number>(0);
+    const [accountId, setAccountId] = useState<number>(0);
     const [account, setAccount] = useState<Account>();
 
     const list = () => {
@@ -26,19 +29,29 @@ export default function AccountById() {
             
             setAccountBalance(account.accountBalance);
             setAccount(account);
+            setAccountId(account.accountId);
         }
 
         getAccountById(params.id);
     }, [params]);
 
     return (
-    <div className="bg-white divide-y divide-gray-200">
-        <p className="px-6 py-4 whitespace-nowrap text-black">{accountName}</p>
-        <p className="px-6 py-4 whitespace-nowrap text-black">{accountType}</p>
-        <p className="px-6 py-4 whitespace-nowrap text-black">${accountBalance}</p>
-        <button 
-            onClick={() => list()}
-            className="py-2 px-4 rounded-md font-medium transition duration-300 ease-in-out bg-blue-500 text-white hover:bg-blue-600"
-        >Back</button>
-    </div>)
+        <div>
+            <div>
+                <AccountView accountName={accountName} accountType={accountType} accountBalance={accountBalance} />
+                <AccountEdit accountName={accountName} accountId={accountId} accountType={accountType} accountBalance={accountBalance}/>
+
+            </div>
+
+            <div className="bg-white divide-y divide-gray-200">
+                <p className="px-6 py-4 whitespace-nowrap text-black">{accountName}</p>
+                <p className="px-6 py-4 whitespace-nowrap text-black">{accountType}</p>
+                <p className="px-6 py-4 whitespace-nowrap text-black">${accountBalance}</p>
+                <button 
+                    onClick={() => list()}
+                    className="py-2 px-4 rounded-md font-medium transition duration-300 ease-in-out bg-blue-500 text-white hover:bg-blue-600"
+                >Back</button>
+            </div>
+        </div>
+    )
 }

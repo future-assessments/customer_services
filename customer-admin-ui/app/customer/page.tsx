@@ -25,21 +25,23 @@ export default function CustomerList() {
     }, []);
 
     return (
-        <div>
+        <div className="overflow-x-auto">
             <h1>Customer List Page</h1>
-            <table>
-                <thead>
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                     <tr>
-                        <th>Customer Name</th>
-                        <th>Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="bg-white divide-y divide-gray-200">
                     {customers.map((customer) => (
                         <tr key={customer.customerId}>
-                            <td>{customer.firstName} {customer.lastName}</td>
-                            <td>
-                                <button onClick={() => editCustomer(customer.customerId)}>Edit</button>
+                            <td className="px-6 py-4 whitespace-nowrap text-black">{customer.firstName} {customer.lastName}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-black">
+                                <button onClick={() => editCustomer(customer.customerId)}
+                                    className="py-2 px-4 rounded-md font-medium transition duration-300 ease-in-out bg-blue-500 text-white hover:bg-blue-600"
+                                    >Edit</button>
                             </td>
                         </tr>
                     ))}
