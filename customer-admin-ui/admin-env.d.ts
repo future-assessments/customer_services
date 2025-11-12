@@ -2,7 +2,7 @@ declare module "admin/customers" {
     interface Customer {
         customerId: number;
         firstName: string;
-        lastName: string;
+        lastName: string; 
     }
 }
 
