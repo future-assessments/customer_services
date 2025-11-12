@@ -32,16 +32,21 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetAccountById(int accountId)
+    public async Task<IActionResult> GetAccountById(int id)
     {
         var account = new AccountDTO
         {
-            AccountId = accountId,
+            AccountId = id,
             AccountType = AccountType.Savings,
             AccountName = "Special Savings Booster",
             AccountBalance = 2345.76m
         };
 
         return Ok(account);
+    }
+
+    public async void SaveAccount(AccountDTO account)
+    {
+
     }
 }
