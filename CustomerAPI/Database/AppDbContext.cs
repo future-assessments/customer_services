@@ -6,6 +6,14 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
+        
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CustomerType>()
+        .HasKey(b => b.CustomerTypeId)
+        .HasName("PrimaryKey_CustomerType");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,4 +41,5 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<CustomerType> CustomerTypes { get; set; }
 }

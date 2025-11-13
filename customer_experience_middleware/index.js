@@ -1,9 +1,34 @@
 const express = require('express');
+const session = require('express-session');
+const Keycloak = require('keycloak-connect');
+
+const memoryStore = new session.MemoryStore();
+
+const kcConfig = {
+    clientId: 'customer-domain',
+    bearerOnly: true,
+    serverUrl: 'http://localhost:8080{kc_base_path}',
+    realm: 'bmds_account_management',
+    realmPublicKey: ''
+};
+
 
 const app = express();
 const cors = require('cors');
 
 app.use(cors()); 
+app.use(
+    session({
+        secret: 'mySecret',
+        resave: false,
+        saveUninitialized: true,
+        store: memoryStore,
+    })
+);
+
+const keycloak = new Keycloak({store: memoryStore}, kcConfig);
+
+app.use(keycloak.middleware());
 
 const PORT = 3030;
 
