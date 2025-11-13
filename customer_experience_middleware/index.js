@@ -5,10 +5,10 @@ const Keycloak = require('keycloak-connect');
 const memoryStore = new session.MemoryStore();
 
 const kcConfig = {
-    clientId: 'customer-domain',
+    clientId: 'account-domain',
     bearerOnly: true,
     serverUrl: 'http://localhost:8080{kc_base_path}',
-    realm: 'bmds_account_management',
+    realm: 'accounts',
     realmPublicKey: ''
 };
 
