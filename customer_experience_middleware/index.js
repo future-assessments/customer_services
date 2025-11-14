@@ -4,14 +4,27 @@ const Keycloak = require('keycloak-connect');
 
 const memoryStore = new session.MemoryStore();
 
+/*
+const kcConfig = {
+  "realm": "account-realm",
+  "auth-server-url": "http://localhost:8090/",
+  "ssl-required": "external",
+  "resource": "account-domain",
+  "bearerOnly": true,
+  "clientId": "account-domain",  
+  "credentials": {
+    "secret": "PRtVX6qq1NPE33owEljvpzddT1E1iYj5"
+  },
+  "confidential-port": 0
+};
+*/
 const kcConfig = {
     clientId: 'account-domain',
     bearerOnly: true,
-    serverUrl: 'http://localhost:8080{kc_base_path}',
-    realm: 'accounts',
-    realmPublicKey: ''
+    serverUrl: 'http://localhost:8090{kc_base_path}',
+    realm: 'account-realm"',
+    realmPublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmSjnJG/9h/VzIn61Sp1xbBlsMuwDZCH/mPqSvOzJHH49LSGs10C+G0dIbU6HG98fcvWlzBNAQOYIguQrk8tsSr/UqQsCdGK3MKaeJjV0qDIakSPmflJdeBeNl4JMFT5CPQmasHqaatA3BRaXs521Qxx9WrRPkgeJmPdNlFcDdI7P0DGaqhNNlEj2cuS6lnq7hUDJ2T2ub1B6aBOAEx67nHSljvUyUBYJBcmBWu7WGIrZWyVj9s49562ikDcBzpxyZBKcvSnGzdeDCTcYtHi16U0pUGcxPyKvdHGS0ucRD49xSIMT2ToPDcUVSuPvoar3fvpXGzutOO4xCGBJoaeQjwIDAQAB'
 };
-
 
 const app = express();
 const cors = require('cors');
@@ -26,9 +39,8 @@ app.use(
     })
 );
 
-const keycloak = new Keycloak({store: memoryStore}, kcConfig);
+const keycloak = new Keycloak({store: memoryStore, scope: 'address'}, kcConfig);
 
-app.use(keycloak.middleware());
 
 const PORT = 3030;
 
@@ -69,7 +81,7 @@ app.get('/account', (req,res) => {
 });
 
 
-app.get('/customer', (req,res) => {
+app.get('/customer', keycloak.protect(), (req,res) => {
     fetch('http://localhost:5263/Customer').then( apiResp => apiResp.json() )
     .then(data => {
         console.log(data);
@@ -99,6 +111,8 @@ app.get('/customer/:customerId', (req,res) => {
         res.send("Error fetching data: ", error);
     });
 });
+
+app.use(keycloak.middleware());
 
 app.listen(PORT, (error) => {
     if(!error)
