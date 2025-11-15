@@ -5,14 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test jest --runInBand"
   },
   "author": "Anthony Ikeda <aikeda33@bloomberg.net>",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "keycloak-connect": "26.1.1",
-    "express-session" : "1.18.2"
+    "express-oauth2-jwt-bearer": "^1.7.1",
+    "express-session": "1.18.2",
+    "keycloak-connect": "26.1.1"
+  }
+  ,
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
